@@ -13,19 +13,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view ('index');
+Route::get('/', function(){
+    return \App\Models\user::factory()->has(\App\Models\Birthh::factory())->make();
+    // return \App\Models\User::fac tory()->changename('panithace')->make();
 });
+//Route::get('/', function(){
+//    birth:Birthh::orderBy('id', 'desc')->get();
+//    return view ('index');
+//});
+//Route::get('/', function(){
+//    factory(Birthh::class, 10)->create();
+//});
+//Route::get('/', function () {
+//    $birth = Birthh::all();
+//    dd($birth);
+//    return view ('index');
+//});
 
-Route::get('/about', function() {
-        return view ('about');
-});
+//Route::get('/about', function() {
+//        return view ('about');
+//});
  
-Route::get('/DB', function() {
-$users= DB::table('users')->orderBy('id')->get();
-dd($users);
-return view ('index');
-});
+//Route::get('/DB', function() {
+//$birth= DB::table('birth')->get();
+//$birth = Birthh::all();
+//dd($birth);
+//return view ('index');
+//});
+//Route::get('/DB', function() {
+ //   $users= DB::table('users')->orderBy('id')->get();
+//    dd($users);
+//    return view ('index');
+//    });
 //Route::get('/post/{p}/{id}', function ($p,$id) {
 //    return $p.'-'. $id;
 //});
