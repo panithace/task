@@ -15,7 +15,8 @@ class BirthhFactory extends Factory
     {
         return [
             //
-            'username' => $this->faker->text ,
+            'username' => $this->faker->text(30) ,
+            //'Birthday' =>$this->faker->date,
         ];
     }
 }
