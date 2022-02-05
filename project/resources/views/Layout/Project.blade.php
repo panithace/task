@@ -13,7 +13,7 @@
     </head>
     <body>
         <!-- Responsive navbar-->
-        @include ('layout.navigation')
+        @include ('Layout.navigation')
         <!-- Page content-->
         <div class="container">
             <div class="row">
@@ -23,7 +23,7 @@
                 </div>
                    
                 <!-- Side widgets-->
-                @include ('layout.side')
+                @include ('Layout.side')
             </div>
         </div>
         <!-- Footer-->
