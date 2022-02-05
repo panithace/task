@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 
 class BirthTableSeeder extends Seeder
 {
@@ -17,10 +17,13 @@ class BirthTableSeeder extends Seeder
         //
         //$faker = \Faker\Factory::create();
         //foreach(range(1,10) as $item){
-        //     DB::table('birth')->insert([
-        //      'username' => $faker->text(20),
-        //     ]);
-        //    }
+             //DB::table('birth')->insert([
+               // 'username'=>"birth $item",
+                //'birthday' => "birth $item",
+              //'username' => $faker->text(20),
+              //'Birthday' =>$faker->date,
+             //]);
+            //}
        // factory(Birthh:class::create, 10)->create();
     }
 }
