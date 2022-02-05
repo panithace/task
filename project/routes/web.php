@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Birthh;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function(){
-    return \App\Models\user::factory()->has(\App\Models\Birthh::factory())->make();
+//Route::get('/', function(){
+  //  return \App\Models\Birthh::factory()->has(\App\Models\Birthh::factory())->make();
     // return \App\Models\User::fac tory()->changename('panithace')->make();
-});
+//});
 //Route::get('/', function(){
 //    birth:Birthh::orderBy('id', 'desc')->get();
 //    return view ('index');
@@ -24,16 +27,94 @@ Route::get('/', function(){
 //Route::get('/', function(){
 //    factory(Birthh::class, 10)->create();
 //});
-//Route::get('/', function () {
+Route::get('/', function () {
 //    $birth = Birthh::all();
 //    dd($birth);
-//    return view ('index');
-//});
+   return view ('index');
+});
 
-//Route::get('/about', function() {
-//        return view ('about');
+Route::get('/about', function() {
+        return view ('about');
+});
+//Route::get('/admin/article/create', function() {
+//    return view ('create');
 //});
  
+Route::prefix('admin')->group(function() {
+    Route::get('article/create', function() {
+    //    if($_GET) {
+    //        dd($_GET);
+    //    }
+         return view('admin.article.create');
+    });
+    //Route::get('/article/create',function(){
+        
+    });
+
+Route::post('article/create', function() {
+    $validate_data = Validator::make(request()->all() , [
+        'username' => 'required|min:2|max:10'
+    //$validator = Validator::make(request()->all() , [
+      //  'username' => 'required|min:2|max:10',
+    ],[
+        'title.required'=>'field'
+    ])->validated();
+        dd($validate_data);
+        Birthh::create([
+            'username' => $validate-data['title'],
+            ]);
+        
+            return redirect('admin/article/create');
+            //$article->username = request('title');
+            //dd(request()->all()); 
+            //dd($_POST);
+            //dd('test'); 
+        });
+
+    Route::get('/article/{id}/edit' , function($id) {
+        $birth=Birthh::find($id);
+
+        return view('admin.article.edit' , [
+            'birth'=>$birth
+        ]);
+
+
+        Route::put('/article/{id}/edit' , function($id){
+            $validate_data = Validator::make(request()->all() , [
+                'username' => 'required|min:2|max:10'
+            ])->validated();
+            $birth=Birth::findOrFail($id);
+
+            $birth->update([
+            'username'=>$validate_data['title'],
+            ]);
+
+            return back();
+            //$birth = birth::find($id);
+            //if(is_null($birth)){
+            //    abort(404);
+            //}
+            //return $birth;
+        });
+    });
+
+
+
+
+    //if($validator->fails()) {
+       // return redirect()
+       //         ->back()
+       //         ->withErrors($validator);
+    //}
+
+
+   // $article = new Birthh();
+    //$article->username = request('username');
+    //$article->save();
+
+
+
+
 //Route::get('/DB', function() {
 //$birth= DB::table('birth')->get();
 //$birth = Birthh::all();
@@ -50,7 +131,7 @@ Route::get('/', function(){
 //});
 
 //Route::get('/', function () {
-//    $title = 'Pa';
+//    $title = 'Pan';
 //
 //    return view ('index', [
 //        'title' => $title
