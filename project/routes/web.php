@@ -41,72 +41,88 @@ Route::get('/about', function() {
 //});
  
 Route::prefix('admin')->group(function() {
-    Route::get('article/create', function() {
-    //    if($_GET) {
-    //        dd($_GET);
-    //    }
+    Route::get('/article/create', function() {
+    // if($_GET) {
+      //      dd($_GET);
+     //   }
+         //dd('test');
          return view('admin.article.create');
     });
     //Route::get('/article/create',function(){
         
-    });
+   
 
-Route::post('article/create', function() {
+Route::post('/article/create',function() {
     $validate_data = Validator::make(request()->all() , [
-        'username' => 'required|min:2|max:10'
+        'title' => 'required|min:5|max:10'
     //$validator = Validator::make(request()->all() , [
-      //  'username' => 'required|min:2|max:10',
-    ],[
-        'title.required'=>'field'
+       // 'username' => 'required|min:2|max:10',
+    //])->validate();
+   // ],[
+        //'title.required'=>'field'
     ])->validated();
-        dd($validate_data);
-        Birthh::create([
-            'username' => $validate-data['title'],
+      //  dd($validate_data);
+       
+      // if($validator->fails()) {
+        //return redirect()
+             //   ->back()
+               // ->withErrors($validator);
+    //}
+            Birthh::create([
+            'username' => $validate_data['title'],
             ]);
         
             return redirect('admin/article/create');
             //$article->username = request('title');
             //dd(request()->all()); 
             //dd($_POST);
-            //dd('test'); 
-        });
+           // dd('test'); 
+           //dd(request('title'));
+        
+    //Route::get('/article/{id}/edit' , function($id) {
+    //    $birth=Birthh::find($id);
+     //   return view('admin.article.edit' , [
+     //       'birth'=>$birth
+     //   ]);
 
-    Route::get('/article/{id}/edit' , function($id) {
-        $birth=Birthh::find($id);
+      // $article = new Birthh();
+       //$article->username = request('title');
+       //$article->save();
+    }); 
 
-        return view('admin.article.edit' , [
-            'birth'=>$birth
-        ]);
+       Route::get('admin/article/{id}/edit' , function($id){
+       //     $validate_data = Validator::make(request()->all() , [
+         //       'username' => 'required|min:2|max:10'
+           // ])->validated();
+              $article = Birthh::find($id);
+           // $birth->update([
+            //'username'=>$validate_data['title'],
+           // ]);
 
-
-        Route::put('/article/{id}/edit' , function($id){
-            $validate_data = Validator::make(request()->all() , [
-                'username' => 'required|min:2|max:10'
-            ])->validated();
-            $birth=Birth::findOrFail($id);
-
-            $birth->update([
-            'username'=>$validate_data['title'],
-            ]);
-
-            return back();
+            //return back();
             //$birth = birth::find($id);
             //if(is_null($birth)){
             //    abort(404);
             //}
-            //return $birth;
+           return view('admin.article.edit' , [
+               'article' => $article
+           ]);
+            // return $article;
         });
-    });
+   // });
+   Route::post('/admin/article/{id}/edit' , function($id){
+    $validate_data = Validator::make(request()->all() , [
+        'title' => 'required|min:5|max:10'
+        ])->validated();
+        
+        $article = Birthh::find($id);
+        return $article->title;
+    }); 
+});
 
 
 
-
-    //if($validator->fails()) {
-       // return redirect()
-       //         ->back()
-       //         ->withErrors($validator);
-    //}
-
+    
 
    // $article = new Birthh();
     //$article->username = request('username');
