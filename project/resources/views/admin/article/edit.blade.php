@@ -21,12 +21,12 @@
        <input type="text" name="title" class="form-control" value="{{ $article->title }}">
     </div>
     <div class="form-group">
-       <label for="body"> body : </label>
+       <label for="body"> body: </label>
        <textarea name="body" id="body" cols="30" rows="10" class="form-control">{{ $article->body }}</textarea>
     </div>
     <button class="btn btn-info">update</button>
 
-    {{--<form action"/admin/article/create">--}}
+    <form action="/admin/article/{{ $article->id}}/edit" method="post">
  {{--<label for="title">title:</label>--}}
   {{--<<nput type="text" name="title">--}}
     {{--<button>Send</button>--}}
