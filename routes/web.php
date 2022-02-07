@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Article;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,69 +17,63 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function(){
-    return \App\Models\Birthh::factory()->has(\App\Models\Birthh::factory())->make();
-    // return \App\Models\User::fac tory()->changename('panithace')->make();
+  $articles=Article::orderBy('id')->get();
+    return view ('index');
 });
-//Route::get('/', function(){
-//    birth:Birthh::orderBy('id', 'desc')->get();
-//    return view ('index');
-//});
-//Route::get('/', function(){
-//    factory(Birthh::class, 10)->create();
-//});
-//Route::get('/', function () {
-//    $birth = Birthh::all();
-//    dd($birth);
-//    return view ('index');
-//});
 
 Route::get('/about', function() {
-        return view ('about');
+  return view ('about');
 });
+
+
  
-Route::prefix('admin')->group(function(){
-    Route::get('article/create', function(){
-        if($_GET) {
-            dd($_GET);
-        }
+Route::prefix('admin')->group(function() {
+  Route::get('/article' , function() {
+    return view ('admin.article.index' , [
+      'article' => Article::all()
+    ]);
+  });
+    Route::get('/article/create', function() {
          return view('admin.article.create');
     });
-    Route::post('/article/create',function(){
-        dd('test');
-    });
+Route::post('/article/create',function() {
+  $validate_data = Validator::make(request()->all() , [
+    'title' => 'required|min:10|max:50',
+    'body' => 'required'
+])->validated();
+      Article::create([
+      'title' => $validate_data['title'],
+      'slug' => $validate_data['title'],
+      'body' => $validate_data['body'],
+      ]);
+
+return redirect('/admin/article/create');
+});  
+
+ Route::get('/article/{id}/edit' , function($id) {
+       $article = Article::findOrFail($id);
+
+       return view('admin.article.edit' , [
+           'article' => $article
+       ]);
+    });    
+    Route::put('/article/{id}/edit' , function($id) {
+      $validate_data = Validator::make(request()->all() , [
+          'title' => 'required|min:10|max:50',
+          'body' => 'required'
+      ])->validated();
+ 
+      $article = Article::findOrFail($id);
+
+      $article->update($validate_data);
+
+      return back();
+  });
+  Route::delete('/article/{id}' , function($id) {
+    $article = Article::findOrFail($id);
+
+    $article->delete();
+
+    return back();
 });
-//Route::get('/DB', function() {
-//$birth= DB::table('birth')->get();
-//$birth = Birthh::all();
-//dd($birth);
-//return view ('index');
-//});
-//Route::get('/DB', function() {
- //   $users= DB::table('users')->orderBy('id')->get();
-//    dd($users);
-//    return view ('index');
-//    });
-//Route::get('/post/{p}/{id}', function ($p,$id) {
-//    return $p.'-'. $id;
-//});
-
-//Route::get('/', function () {
-//    $title = 'Pa';
-//
-//    return view ('index', [
-//        'title' => $title
-//    ]);
-//});
-
-//Route::get('/post/{id}', function ($id) {
-//    return "post num". $id;
-//});
-//Route::get('/post/admin/example', array('as'=>'admin.home' , function () {
-//    $url = route ('admin.home');
-//    return "this url is". $url;
-//}));
-
-//route::get('/post' , '\App\Http\Controllers\PostController@index');
-
-//use App\Http\Controllers\PostController;
-//route::resource ('post', 'PostController');
+  });
