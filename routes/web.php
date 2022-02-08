@@ -49,31 +49,34 @@ Route::post('/article/create',function() {
 
 return redirect('/admin/article/create');
 });  
+Route::get('/article/{id}/edit' , function($id) {
+  $article = Article::findOrFail($id);
 
- Route::get('/article/{id}/edit' , function($id) {
-       $article = Article::findOrFail($id);
+  return view('admin.article.edit' , [
+      'article' => $article
+  ]);
+});    
+Route::put('/article/{id}/edit' , function($id) {
+ $validate_data = Validator::make(request()->all() , [
+     'title' => 'required|min:10|max:50',
+     'body' => 'required'
+ ])->validated();
 
-       return view('admin.article.edit' , [
-           'article' => $article
-       ]);
-    });    
-    Route::put('/article/{id}/edit' , function($id) {
-      $validate_data = Validator::make(request()->all() , [
-          'title' => 'required|min:10|max:50',
-          'body' => 'required'
-      ])->validated();
- 
-      $article = Article::findOrFail($id);
+ $article = Article::findOrFail($id);
 
-      $article->update($validate_data);
+ $article->update($validate_data);
 
-      return back();
-  });
-  Route::delete('/article/{id}' , function($id) {
-    $article = Article::findOrFail($id);
-
-    $article->delete();
-
-    return back();
+ return back();
 });
-  });
+Route::delete('/article/{id}' , function($id) {
+$article = Article::findOrFail($id);
+
+$article->delete();
+
+return back();
+});
+});
+
+
+
+ 
