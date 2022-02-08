@@ -1,7 +1,7 @@
 @extends('Layout.Project')
 
-
-@section('content')
+ 
+    @section('content')
 
 <h1> About Page </h1>
 
