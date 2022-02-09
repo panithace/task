@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model
 {
-    //const CREATED_AT = '2022-01-08';
-    //const UPDATED_AT = '2022-01-08';
+    protected $table = 'notifications';
     use HasFactory;
+    public function index()
+    {
+        $comparison = Carbon::now()->subDays(30);
+  
+        $cid = Notification::where('created_at', '<=', $comparison)->get();
+    
+        dd($cid);
+    }
 }
