@@ -16,9 +16,9 @@ class NotificationsTableSeeder extends Seeder
     {
         //
         $faker = \Faker\Factory::create();
-        foreach (range(1,20) as $item) {
+        foreach (range(1,30) as $item) {
             DB::table('notifications')->insert([
-                'priority' => $faker->numberBetween(47,56),
+                'priority' => $faker->numberBetween(49,53),
                 'url' => $faker->text(50),
                 'description' => $faker->paragraph(rand(5,20)),
                 'created_at' => now(),
