@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Article;
+use App\Models\Notification;
+use Carbon\Carbon;
 
 
 /*
@@ -16,17 +18,14 @@ use App\Models\Article;
 |
 */
 
-Route::get('/', function(){
-  $articles=Article::orderBy('id')->get();
-    return view ('index');
+Route::get('/', function () {
+  $articles = Article::orderBy('id')->get();
+  return view('index');
 });
 
-Route::get('/about', function() {
-  return view ('about');
+Route::get('/about', function () {
+  return view('about');
 });
-
-
- 
 Route::prefix('admin')->group(function() {
   Route::get('/article' , function() {
     return view ('admin.article.index' , [
@@ -49,34 +48,30 @@ Route::post('/article/create',function() {
 
 return redirect('/admin/article/create');
 });  
-Route::get('/article/{id}/edit' , function($id) {
-  $article = Article::findOrFail($id);
+ Route::get('/article/{id}/edit' , function($id) {
+       $article = Article::findOrFail($id);
 
-  return view('admin.article.edit' , [
-      'article' => $article
-  ]);
-});    
-Route::put('/article/{id}/edit' , function($id) {
- $validate_data = Validator::make(request()->all() , [
-     'title' => 'required|min:10|max:50',
-     'body' => 'required'
- ])->validated();
+       return view('admin.article.edit' , [
+           'article' => $article
+       ]);
+    });
+    Route::put('/article/{id}/edit' , function($id) {
+        $validate_data = Validator::make(request()->all() , [
+            'title' => 'required|min:10|max:50',
+            'body' => 'required'
+        ])->validated();
 
- $article = Article::findOrFail($id);
+        $article = Article::findOrFail($id);
 
- $article->update($validate_data);
+        $article->update($validate_data);
 
- return back();
+        return back();
+    });
+    Route::delete('/article/{id}' , function($id) {
+        $article = Article::findOrFail($id);
+
+        $article->delete();
+
+        return back();
+    });
 });
-Route::delete('/article/{id}' , function($id) {
-$article = Article::findOrFail($id);
-
-$article->delete();
-
-return back();
-});
-});
-
-
-
- 
