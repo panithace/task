@@ -18,6 +18,7 @@ use Laravel\Fortify\Fortify;
 use Livewire\Livewire;
 use App\Http\Livewire\ProfileContactInformationForm;
 
+
 class JetstreamServiceProvider extends ServiceProvider
 {
     /**
@@ -39,7 +40,6 @@ class JetstreamServiceProvider extends ServiceProvider
     {
         $this->configurePermissions();
 
-        
         Jetstream::deleteUsersUsing(DeleteUser::class);
 
         Fortify::authenticateUsing(function (Request $request) {
@@ -53,20 +53,25 @@ class JetstreamServiceProvider extends ServiceProvider
                 return $user;
             }
         });
+
+        //Jetstream::createTeamsUsing(CreateTeam::class);
+        //Jetstream::updateTeamNamesUsing(UpdateTeamName::class);
+        //Jetstream::addTeamMembersUsing(AddTeamMember::class);
+        //Jetstream::inviteTeamMembersUsing(InviteTeamMember::class);
+        //Jetstream::removeTeamMembersUsing(RemoveTeamMember::class);
+        //Jetstream::deleteTeamsUsing(DeleteTeam::class);
+        //Jetstream::deleteUsersUsing(DeleteUser::class);
     }
 
     /**
-     * Configure the permissions that are available within the application.
+     * Configure the roles and permissions that are available within the application.
      *
      * @return void
      */
-
-
     protected function configurePermissions()
     {
         Jetstream::defaultApiTokenPermissions(['read']);
-
-        Jetstream::permissions([
+            Jetstream::permissions([
             'create',
             'read',
             'update',

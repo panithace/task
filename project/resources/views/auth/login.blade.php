@@ -16,9 +16,9 @@
             @csrf
 
             <div>
-                <x-jet-label for="auth" value="{{ __('Email/Username/Phone Number') }}" />
-                <x-jet-input id="auth" class="block mt-1 w-full" type="text" name="auth" :value="old('auth')" required autofocus />
-            </div>
+    <x-jet-label for="auth" value="{{ __('Email/Username/Phone Number') }}" />
+    <x-jet-input id="auth" class="block mt-1 w-full" type="text" name="auth" :value="old('auth')" required autofocus />
+        </div>
 
             <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Password') }}" />

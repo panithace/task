@@ -51,31 +51,42 @@
                 <x-jet-input-error for="photo" class="mt-2" />
             </div>
         @endif
-        
-         <!-- First name -->
+
+        <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="first_name" value="{{ __('First name') }}" />
-            <x-jet-input id="first_name" type="text" class="mt-1 block w-full" wire:model.defer="state.first_name" autocomplete="first_name" />
-            <x-jet-input-error for="first_name" class="mt-2" />
+            <x-jet-label for="name" value="{{ __('Name') }}" />
+            <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="state.name" autocomplete="name" />
+            <x-jet-input-error for="name" class="mt-2" />        
         </div>
+
 
         <!-- Last name -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="last_name" value="{{ __('Last name') }}" />
             <x-jet-input id="last_name" type="text" class="mt-1 block w-full" wire:model.defer="state.last_name" autocomplete="last_name" />
             <x-jet-input-error for="last_name" class="mt-2" />
-        </div>                               
+        </div>
+
+
+        <!-- Personal -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="peronal" value="{{ __('Personal Description') }}" />
+            <x-jet-input id="peronal" type="text" class="mt-1 block w-full" wire:model.defer="state.peronal" autocomplete="peronal" />
+            <x-jet-input-error for="peronal" class="mt-2" />
+        </div>
+
+        <!-- Skills -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="skill" value="{{ __('Skills') }}" />
+            <x-jet-input id="skill" type="text" class="mt-1 block w-full" wire:model.defer="state.skill" autocomplete="skill" />
+            <x-jet-input-error for="skill" class="mt-2" />
+        </div>
+
         <!-- Email -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="email" value="{{ __('Email') }}" />
             <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
-        </div>
-        <!-- phone -->
-        <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="phone" value="{{ __('phone') }}" />
-            <x-jet-input id="phone" type="phone" class="mt-1 block w-full" wire:model.defer="state.phone" />
-            <x-jet-input-error for="phone" class="mt-2" />
         </div>
     </x-slot>
 
